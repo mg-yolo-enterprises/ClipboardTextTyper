@@ -33,7 +33,7 @@ namespace ClipboardTextTyper
                 Error("Clipboard text is blank!");
                 return;
             }
-            if (clipboardText.Length > 500)
+            if (clipboardText.Length > 1000)
             {
                 Error("Clipboard text has too many characters!");
                 return;
@@ -61,8 +61,17 @@ namespace ClipboardTextTyper
         {
             foreach (var character in clipboardText)
             {
-                SendKeys.SendWait($"{{{character}}}");
-                Thread.Sleep(TimeSpan.FromMilliseconds(75));
+                switch (character)
+                {
+                    case '\r':
+                        continue;
+                    case '\n':
+                        SendKeys.SendWait($"{{ENTER}}");
+                        continue;
+                    default:
+                        SendKeys.SendWait($"{{{character}}}");
+                        break;
+                }
             }
         }
     }
