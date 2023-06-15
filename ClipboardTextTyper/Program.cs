@@ -94,6 +94,12 @@ namespace ClipboardTextTyper
                     case '\n':
                         SendKeys.SendWait($"{{ENTER}}");
                         continue;
+                    case '\t':
+                        SendKeys.SendWait($"{{TAB}}");
+                        continue;
+                    case ' ':
+                        SendKeys.SendWait($" ");
+                        continue;
                     default:
                         SendKeys.SendWait($"{{{character}}}");
                         break;
